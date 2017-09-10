@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbTestITIN22Modell.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBenutzer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRolle" Type="int" Nullable="false" />
+          <Property Name="benutzername" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="passwort" Type="varbinary(max)" Nullable="false" />
+          <Property Name="vorname" Type="nvarchar" MaxLength="255" />
+          <Property Name="nachname" Type="nvarchar" MaxLength="255" />
+          <Property Name="plz" Type="nvarchar" MaxLength="255" />
+          <Property Name="ort" Type="nvarchar" MaxLength="255" />
+          <Property Name="aktiv" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblKategorien">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bezeichnung" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="aktiv" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRechnungen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idBenutzer" Type="int" Nullable="false" />
+          <Property Name="datum" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRechnungsWaren">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRechnung" Type="int" Nullable="false" />
+          <Property Name="idWare" Type="int" Nullable="false" />
+          <Property Name="menge" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRollen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bezeichnung" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="aktiv" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblWaren">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bezeichnung" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="preis" Type="float" Nullable="false" />
+          <Property Name="idKategorie" Type="int" Nullable="false" />
+          <Property Name="aktiv" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblBenutzer_tblRollen">
+          <End Role="tblRollen" Type="Self.tblRollen" Multiplicity="1" />
+          <End Role="tblBenutzer" Type="Self.tblBenutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRollen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblBenutzer">
+              <PropertyRef Name="idRolle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRechnungen_tblBenutzer">
+          <End Role="tblBenutzer" Type="Self.tblBenutzer" Multiplicity="1" />
+          <End Role="tblRechnungen" Type="Self.tblRechnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBenutzer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblRechnungen">
+              <PropertyRef Name="idBenutzer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRechnungsWaren_tblRechnungen">
+          <End Role="tblRechnungen" Type="Self.tblRechnungen" Multiplicity="1" />
+          <End Role="tblRechnungsWaren" Type="Self.tblRechnungsWaren" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRechnungen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblRechnungsWaren">
+              <PropertyRef Name="idRechnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRechnungsWaren_tblWaren">
+          <End Role="tblWaren" Type="Self.tblWaren" Multiplicity="1" />
+          <End Role="tblRechnungsWaren" Type="Self.tblRechnungsWaren" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblWaren">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblRechnungsWaren">
+              <PropertyRef Name="idWare" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWaren_tblKategorien">
+          <End Role="tblKategorien" Type="Self.tblKategorien" Multiplicity="1" />
+          <End Role="tblWaren" Type="Self.tblWaren" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKategorien">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblWaren">
+              <PropertyRef Name="idKategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbTestITIN22ModellStoreContainer">
+          <EntitySet Name="tblBenutzer" EntityType="Self.tblBenutzer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKategorien" EntityType="Self.tblKategorien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRechnungen" EntityType="Self.tblRechnungen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRechnungsWaren" EntityType="Self.tblRechnungsWaren" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRollen" EntityType="Self.tblRollen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWaren" EntityType="Self.tblWaren" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblBenutzer_tblRollen" Association="Self.FK_tblBenutzer_tblRollen">
+            <End Role="tblRollen" EntitySet="tblRollen" />
+            <End Role="tblBenutzer" EntitySet="tblBenutzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRechnungen_tblBenutzer" Association="Self.FK_tblRechnungen_tblBenutzer">
+            <End Role="tblBenutzer" EntitySet="tblBenutzer" />
+            <End Role="tblRechnungen" EntitySet="tblRechnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRechnungsWaren_tblRechnungen" Association="Self.FK_tblRechnungsWaren_tblRechnungen">
+            <End Role="tblRechnungen" EntitySet="tblRechnungen" />
+            <End Role="tblRechnungsWaren" EntitySet="tblRechnungsWaren" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRechnungsWaren_tblWaren" Association="Self.FK_tblRechnungsWaren_tblWaren">
+            <End Role="tblWaren" EntitySet="tblWaren" />
+            <End Role="tblRechnungsWaren" EntitySet="tblRechnungsWaren" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWaren_tblKategorien" Association="Self.FK_tblWaren_tblKategorien">
+            <End Role="tblKategorien" EntitySet="tblKategorien" />
+            <End Role="tblWaren" EntitySet="tblWaren" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbTestITIN22Modell" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Rolle" Type="Int32" Nullable="false" />
+          <Property Name="BenutzerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passwort" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PLZ" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Ort" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Aktiv" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rolle" Relationship="Self.FK_tblBenutzer_tblRollen" FromRole="tblBenutzer" ToRole="tblRollen" />
+          <NavigationProperty Name="AlleRechnungen" Relationship="Self.FK_tblRechnungen_tblBenutzer" FromRole="tblBenutzer" ToRole="tblRechnungen" />
+        </EntityType>
+        <EntityType Name="Kategorie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Aktiv" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AlleWaren" Relationship="Self.FK_tblWaren_tblKategorien" FromRole="tblKategorien" ToRole="tblWaren" />
+        </EntityType>
+        <EntityType Name="Rechnung">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Benutzer" Type="Int32" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Benutzer" Relationship="Self.FK_tblRechnungen_tblBenutzer" FromRole="tblRechnungen" ToRole="tblBenutzer" />
+          <NavigationProperty Name="AlleRechnungsWaren" Relationship="Self.FK_tblRechnungsWaren_tblRechnungen" FromRole="tblRechnungen" ToRole="tblRechnungsWaren" />
+        </EntityType>
+        <EntityType Name="RechnungsWare">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Rechnung" Type="Int32" Nullable="false" />
+          <Property Name="ID_Ware" Type="Int32" Nullable="false" />
+          <Property Name="Menge" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rechnung" Relationship="Self.FK_tblRechnungsWaren_tblRechnungen" FromRole="tblRechnungsWaren" ToRole="tblRechnungen" />
+          <NavigationProperty Name="Ware" Relationship="Self.FK_tblRechnungsWaren_tblWaren" FromRole="tblRechnungsWaren" ToRole="tblWaren" />
+        </EntityType>
+        <EntityType Name="Rolle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Aktiv" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AlleBenutzer" Relationship="Self.FK_tblBenutzer_tblRollen" FromRole="tblRollen" ToRole="tblBenutzer" />
+        </EntityType>
+        <EntityType Name="Ware">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Preis" Type="Double" Nullable="false" />
+          <Property Name="ID_Kategorie" Type="Int32" Nullable="false" />
+          <Property Name="Aktiv" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Kategorie" Relationship="Self.FK_tblWaren_tblKategorien" FromRole="tblWaren" ToRole="tblKategorien" />
+          <NavigationProperty Name="AlleRechnungsWaren" Relationship="Self.FK_tblRechnungsWaren_tblWaren" FromRole="tblWaren" ToRole="tblRechnungsWaren" />
+        </EntityType>
+        <Association Name="FK_tblBenutzer_tblRollen">
+          <End Role="tblRollen" Type="dbTestITIN22Modell.Rolle" Multiplicity="1" />
+          <End Role="tblBenutzer" Type="dbTestITIN22Modell.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRollen">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBenutzer">
+              <PropertyRef Name="ID_Rolle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRechnungen_tblBenutzer">
+          <End Role="tblBenutzer" Type="dbTestITIN22Modell.Benutzer" Multiplicity="1" />
+          <End Role="tblRechnungen" Type="dbTestITIN22Modell.Rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBenutzer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblRechnungen">
+              <PropertyRef Name="ID_Benutzer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWaren_tblKategorien">
+          <End Role="tblKategorien" Type="dbTestITIN22Modell.Kategorie" Multiplicity="1" />
+          <End Role="tblWaren" Type="dbTestITIN22Modell.Ware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKategorien">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblWaren">
+              <PropertyRef Name="ID_Kategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRechnungsWaren_tblRechnungen">
+          <End Role="tblRechnungen" Type="dbTestITIN22Modell.Rechnung" Multiplicity="1" />
+          <End Role="tblRechnungsWaren" Type="dbTestITIN22Modell.RechnungsWare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRechnungen">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblRechnungsWaren">
+              <PropertyRef Name="ID_Rechnung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblRechnungsWaren_tblWaren">
+          <End Role="tblWaren" Type="dbTestITIN22Modell.Ware" Multiplicity="1" />
+          <End Role="tblRechnungsWaren" Type="dbTestITIN22Modell.RechnungsWare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblWaren">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblRechnungsWaren">
+              <PropertyRef Name="ID_Ware" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbTestITIN22Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AlleBenutzer" EntityType="dbTestITIN22Modell.Benutzer" />
+          <EntitySet Name="AlleKategorien" EntityType="dbTestITIN22Modell.Kategorie" />
+          <EntitySet Name="AlleRechnungen" EntityType="dbTestITIN22Modell.Rechnung" />
+          <EntitySet Name="AlleRechnungsWaren" EntityType="dbTestITIN22Modell.RechnungsWare" />
+          <EntitySet Name="AlleRollen" EntityType="dbTestITIN22Modell.Rolle" />
+          <EntitySet Name="AlleWaren" EntityType="dbTestITIN22Modell.Ware" />
+          <AssociationSet Name="FK_tblBenutzer_tblRollen" Association="Self.FK_tblBenutzer_tblRollen">
+            <End Role="tblRollen" EntitySet="AlleRollen" />
+            <End Role="tblBenutzer" EntitySet="AlleBenutzer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRechnungen_tblBenutzer" Association="Self.FK_tblRechnungen_tblBenutzer">
+            <End Role="tblBenutzer" EntitySet="AlleBenutzer" />
+            <End Role="tblRechnungen" EntitySet="AlleRechnungen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWaren_tblKategorien" Association="Self.FK_tblWaren_tblKategorien">
+            <End Role="tblKategorien" EntitySet="AlleKategorien" />
+            <End Role="tblWaren" EntitySet="AlleWaren" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRechnungsWaren_tblRechnungen" Association="Self.FK_tblRechnungsWaren_tblRechnungen">
+            <End Role="tblRechnungen" EntitySet="AlleRechnungen" />
+            <End Role="tblRechnungsWaren" EntitySet="AlleRechnungsWaren" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblRechnungsWaren_tblWaren" Association="Self.FK_tblRechnungsWaren_tblWaren">
+            <End Role="tblWaren" EntitySet="AlleWaren" />
+            <End Role="tblRechnungsWaren" EntitySet="AlleRechnungsWaren" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbTestITIN22ModellStoreContainer" CdmEntityContainer="dbTestITIN22Entities">
+          <EntitySetMapping Name="AlleBenutzer">
+            <EntityTypeMapping TypeName="dbTestITIN22Modell.Benutzer">
+              <MappingFragment StoreEntitySet="tblBenutzer">
+                <ScalarProperty Name="ID" ColumnName="id" />
+                <ScalarProperty Name="ID_Rolle" ColumnName="idRolle" />
+                <ScalarProperty Name="BenutzerName" ColumnName="benutzername" />
+                <ScalarProperty Name="Passwort" ColumnName="passwort" />
+                <ScalarProperty Name="Vorname" ColumnName="vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="nachname" />
+                <ScalarProperty Name="PLZ" ColumnName="plz" />
+                <ScalarProperty Name="Ort" ColumnName="ort" />
+                <ScalarProperty Name="Aktiv" ColumnName="aktiv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlleKategorien">
+            <EntityTypeMapping TypeName="dbTestITIN22Modell.Kategorie">
+              <MappingFragment StoreEntitySet="tblKategorien">
+                <ScalarProperty Name="ID" ColumnName="id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="bezeichnung" />
+                <ScalarProperty Name="Aktiv" ColumnName="aktiv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlleRechnungen">
+            <EntityTypeMapping TypeName="dbTestITIN22Modell.Rechnung">
+              <MappingFragment StoreEntitySet="tblRechnungen">
+                <ScalarProperty Name="ID" ColumnName="id" />
+                <ScalarProperty Name="ID_Benutzer" ColumnName="idBenutzer" />
+                <ScalarProperty Name="Datum" ColumnName="datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlleRechnungsWaren">
+            <EntityTypeMapping TypeName="dbTestITIN22Modell.RechnungsWare">
+              <MappingFragment StoreEntitySet="tblRechnungsWaren">
+                <ScalarProperty Name="ID" ColumnName="id" />
+                <ScalarProperty Name="ID_Rechnung" ColumnName="idRechnung" />
+                <ScalarProperty Name="ID_Ware" ColumnName="idWare" />
+                <ScalarProperty Name="Menge" ColumnName="menge" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlleRollen">
+            <EntityTypeMapping TypeName="dbTestITIN22Modell.Rolle">
+              <MappingFragment StoreEntitySet="tblRollen">
+                <ScalarProperty Name="ID" ColumnName="id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="bezeichnung" />
+                <ScalarProperty Name="Aktiv" ColumnName="aktiv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlleWaren">
+            <EntityTypeMapping TypeName="dbTestITIN22Modell.Ware">
+              <MappingFragment StoreEntitySet="tblWaren">
+                <ScalarProperty Name="ID" ColumnName="id" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="bezeichnung" />
+                <ScalarProperty Name="Preis" ColumnName="preis" />
+                <ScalarProperty Name="ID_Kategorie" ColumnName="idKategorie" />
+                <ScalarProperty Name="Aktiv" ColumnName="aktiv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

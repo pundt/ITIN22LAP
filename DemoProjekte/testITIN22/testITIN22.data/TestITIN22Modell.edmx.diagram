@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ace3cc5cb55e4c93b46b2ac9c43a00ec" Name="Diagram1">
+        <EntityTypeShape EntityType="dbTestITIN22Modell.Benutzer" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbTestITIN22Modell.Kategorie" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbTestITIN22Modell.Rechnung" Width="1.5" PointX="5.125" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbTestITIN22Modell.RechnungsWare" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbTestITIN22Modell.Rolle" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbTestITIN22Modell.Ware" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="dbTestITIN22Modell.FK_tblBenutzer_tblRollen" ManuallyRouted="false" />
+        <AssociationConnector Association="dbTestITIN22Modell.FK_tblRechnungen_tblBenutzer" ManuallyRouted="false" />
+        <AssociationConnector Association="dbTestITIN22Modell.FK_tblWaren_tblKategorien" ManuallyRouted="false" />
+        <AssociationConnector Association="dbTestITIN22Modell.FK_tblRechnungsWaren_tblRechnungen" ManuallyRouted="false" />
+        <AssociationConnector Association="dbTestITIN22Modell.FK_tblRechnungsWaren_tblWaren" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

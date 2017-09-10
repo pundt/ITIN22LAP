@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testWebshop.logic", "testWebshop.logic\testWebshop.logic.csproj", "{93E96DCF-8D12-43E6-A2AD-CC80D4DA7C85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testITIN22.data", "..\testITIN22\testITIN22.data\testITIN22.data.csproj", "{9B1135B5-D30C-414F-BE06-319357195D6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testWebshop.test", "testWebshop.test\testWebshop.test.csproj", "{A2156690-8BCC-4695-8A7B-5DDCED02968F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93E96DCF-8D12-43E6-A2AD-CC80D4DA7C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E96DCF-8D12-43E6-A2AD-CC80D4DA7C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E96DCF-8D12-43E6-A2AD-CC80D4DA7C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E96DCF-8D12-43E6-A2AD-CC80D4DA7C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B1135B5-D30C-414F-BE06-319357195D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B1135B5-D30C-414F-BE06-319357195D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B1135B5-D30C-414F-BE06-319357195D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B1135B5-D30C-414F-BE06-319357195D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2156690-8BCC-4695-8A7B-5DDCED02968F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2156690-8BCC-4695-8A7B-5DDCED02968F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2156690-8BCC-4695-8A7B-5DDCED02968F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2156690-8BCC-4695-8A7B-5DDCED02968F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

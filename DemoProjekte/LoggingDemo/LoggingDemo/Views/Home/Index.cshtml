@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Log4Net</h1>
+    <p><a href="https://logging.apache.org" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+       <h2>ToDo List</h2>
+        <ul>
+            <li>nuget - log4net installieren</li>
+            <li>
+                web/app.config erweitern
+                <ul>
+                    <li>config section erweitern</li>
+                    <li>log4net mit gewünschten appendern einbauen</li>
+                    <li>dateipfad - fileAppender prüfen</li>
+                    <li>connectionString - adonetAppender prüfen</li>
+                    <li>Datenbank-Tabelle erstellen - bei adonetAppender</li>
+                </ul>
+            </li>
+            <li>Global.asax - Application_Start - am Ende <code> XmlConfigurator.Configure();</code> aufrufen</li>
+            <li>
+                In den Klassen selbst
+                <ol>
+                    <li><code>private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);</code> aufrufen</li>
+                    <li>mit <code>log.debug("hallo welt");</code> bzw. warn(..), error(..) usw. Meldungen protokollieren</li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+</div>
